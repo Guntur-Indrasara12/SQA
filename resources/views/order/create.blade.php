@@ -10,20 +10,23 @@
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="input-group input-group-outline my-3">
-                            <select name="product_id" class="form-control">
-                                <option value="">-- Select Product --</option>
-                                @foreach ($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        @include('components.select', [
+                            'name' => 'product_id',
+                            'label' => 'Product',
+                            'options' => $products->pluck('name', 'id')->toArray(),
+                            'required' => true,
+                        ])
                     </div>
+
                     <div class="col-md-6">
-                        <div class="input-group input-group-outline my-3">
-                            <label class="form-label">Quantity</label>
-                            <input type="number" name="quantity" class="form-control" step="0.01" min="0">
-                        </div>
+                        @include('components.input', [
+                            'name' => 'quantity',
+                            'label' => 'Quantity',
+                            'type' => 'number',
+                            'step' => '0.01',
+                            'min' => '0',
+                            'required' => true,
+                        ])
                     </div>
                     <div class="row">
                         <div class="col-md-12">

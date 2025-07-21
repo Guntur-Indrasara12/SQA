@@ -12,28 +12,28 @@
                 @method('PUT')
                 <div class="row">
                     <div class="col-md-6">
-                        <div
-                            class="input-group input-group-outline my-3 {{ old('product_id', $Order->product_id) ? 'is-filled' : '' }}">
-                            <select name="product_id" class="form-control">
-                                <option value="">-- Select Product --</option>
-                                @foreach ($products as $product)
-                                    <option value="{{ $product->id }}"
-                                        {{ $product->id == old('product_id', $Order->product_id) ? 'selected' : '' }}>
-                                        {{ $product->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                        @include('components.select', [
+                            'name' => 'product_id',
+                            'label' => 'Product',
+                            'options' => $products->pluck('name', 'id')->toArray(),
+                            'value' => $Order->product_id,
+                            'required' => true,
+                        ])
                     </div>
+
                     <div class="col-md-6">
-                        <div
-                            class="input-group input-group-outline my-3 {{ old('quantity', $Order->quantity) ? 'is-filled' : '' }}">
-                            <label class="form-label">Quantity</label>
-                            <input type="number" name="quantity" class="form-control" step="0.01" min="0"
-                                value="{{ old('quantity', $Order->quantity) }}">
-                        </div>
+                        @include('components.input', [
+                            'name' => 'quantity',
+                            'label' => 'Quantity',
+                            'type' => 'number',
+                            'step' => '0.01',
+                            'min' => '0',
+                            'value' => $Order->quantity,
+                            'required' => true,
+                        ])
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <button type="submit" class="btn bg-gradient-dark w-100">Update Order</button>
