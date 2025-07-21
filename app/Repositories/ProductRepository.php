@@ -16,7 +16,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function filter(Request $request): iterable
     {
         return Product::applyFilters($request, ['name', 'status', 'price'])
-            ->paginate($request->input('per_page', 2));
+            ->paginate($request->input('per_page', 5));
     }
 
     public function create(array $data): Product
