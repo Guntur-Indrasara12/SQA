@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Exceptions\product\ProductNotFoundException;
 use App\Services\ProductService;
 use App\Http\Requests\StoreProductRequest;
+use Illuminate\Http\Request;
+
 use App\Notifications\ProductRequestedNotification;
 
 class ProductController extends Controller
@@ -16,9 +18,10 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
-    public function index()
+    public function index(request $request)
     {
-        $products = $this->productService->getAllProducts();
+        // $products = $this->productService->getAllProducts();
+        $products = $this->productService->getFilteredProducts($request);
         return view('product.index', compact('products'));
     }
 
@@ -58,7 +61,6 @@ class ProductController extends Controller
     {
         try {
             $product = $this->productService->getProductById($id);
-            dd($product);
             return view('product.show', compact('product'));
         } catch (ProductNotFoundException $e) {
             return redirect()->route('product.index')->with('error', $e->getMessage());

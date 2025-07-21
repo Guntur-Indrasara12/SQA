@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasQueryFilters;
 
 /**
  * @property int $id
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
+    use HasQueryFilters;
+
     protected $table = 'products';
     protected $fillable = ['name', 'description', 'price', 'quantity'];
 

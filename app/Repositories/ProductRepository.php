@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use Illuminate\Http\Request;
 use App\Interfaces\ProductRepositoryInterface;
 
 class ProductRepository implements ProductRepositoryInterface
@@ -10,6 +11,12 @@ class ProductRepository implements ProductRepositoryInterface
     public function all(): iterable
     {
         return Product::all();
+    }
+
+    public function filter(Request $request): iterable
+    {
+        return Product::applyFilters($request, ['name', 'status', 'price'])
+            ->paginate($request->input('per_page', 2));
     }
 
     public function create(array $data): Product

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\product\ProductNotFoundException;
+use Illuminate\Http\Request;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Models\Product;
 
@@ -20,6 +21,10 @@ class ProductService
         return $this->repo->all();
     }
 
+    public function getFilteredProducts(Request $request)
+    {
+        return $this->repo->filter($request);
+    }
     public function create(array $data): Product
     {
         return $this->repo->create($data);
