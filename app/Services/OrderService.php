@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Exceptions\Order\OrderNotFoundException;
 use App\Interfaces\OrderRepositoryInterface;
 use App\Models\Order;
+use App\Services\ProductService;
+use App\Events\OrderCreated;
 
 class OrderService
 {
@@ -33,7 +35,9 @@ class OrderService
         $product = $this->productService->getProductById($data['product_id']);
         $price = $product->price;
         $data['total'] = $this->calculateTotal($data['quantity'], $price);
-        return $this->repo->create(data: $data);
+        $order = $this->repo->create($data);
+        event(new OrderCreated($order)); // sync event
+        return $order;
     }
 
 

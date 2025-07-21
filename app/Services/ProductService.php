@@ -6,6 +6,7 @@ use App\Exceptions\product\ProductNotFoundException;
 use Illuminate\Http\Request;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Models\Product;
+use Illuminate\Support\Facades\Cache;
 
 class ProductService
 {
@@ -18,7 +19,9 @@ class ProductService
 
     public function getAllProducts()
     {
-        return $this->repo->all();
+        return Cache::remember('products.all', now()->addMinutes(30), function () {
+            return $this->repo->all();
+        });
     }
 
     public function getFilteredProducts(Request $request)
@@ -27,6 +30,7 @@ class ProductService
     }
     public function create(array $data): Product
     {
+        Cache::forget('products.all');
         return $this->repo->create($data);
     }
 
@@ -41,6 +45,7 @@ class ProductService
 
     public function update(Product $product, array $data): Product
     {
+        Cache::forget('products.all');
         return $this->repo->update($product, $data);
     }
 
@@ -50,6 +55,7 @@ class ProductService
         if (!$deleted) {
             throw new ProductNotFoundException();
         }
+        Cache::forget('products.all');
         return true;
     }
 }
