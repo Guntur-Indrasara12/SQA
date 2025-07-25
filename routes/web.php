@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -10,4 +11,6 @@ Route::get('/', function () {
 
 Route::resource('product', ProductController::class);
 Route::resource('order', OrderController::class);
+Route::resource('Log', LogController::class);
+
 

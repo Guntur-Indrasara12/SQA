@@ -34,9 +34,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" href="{{ url('/virtual-reality') }}">
+                <a class="nav-link text-dark" href="{{ route('Log.index') }}">
                     <i class="material-symbols-rounded opacity-5">view_in_ar</i>
-                    <span class="nav-link-text ms-1">Virtual Reality</span>
+                    <span class="nav-link-text ms-1">Log</span>
                 </a>
             </li>
             <li class="nav-item">
