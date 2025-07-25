@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\V1\ProductResource;
 use App\Services\ProductService;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {

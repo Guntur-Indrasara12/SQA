@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Interfaces\HobbyRepositoryInterface;
 use App\Interfaces\LogRepositoryInterface;
 use App\Interfaces\OrderRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
+use App\Repositories\HobbyRepository;
 use App\Repositories\LogRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\UserRepository;
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(LogRepositoryInterface::class, LogRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(HobbyRepositoryInterface::class, HobbyRepository::class);
+
 
 
     }
