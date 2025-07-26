@@ -25,6 +25,12 @@ class UserServices
      * @param array $data The validated data from the request.
      * @return User
      */
+    public function getAllUser()
+    {
+        return Cache::remember('User.all', now()->addMinutes(30), function () {
+            return $this->repo->all();
+        });
+    }
     public function createUser(array $data): User
     {
         Cache::forget(self::CACHE_KEY_ALL_USERS);
@@ -74,5 +80,25 @@ class UserServices
     public function getFilteredUsers(Request $request)
     {
         return $this->repo->filter($request);
+    }
+
+    public function assignHobbyToUser(int $userId, int $hobbyId): User
+    {
+        $user = $this->getUserById($userId);
+        $this->repo->attachHobby($user, $hobbyId);
+        return $user->load('hobbies');
+    }
+
+    /**
+     *
+     * @param int $userId
+     * @param int $hobbyId
+     * @return User
+     */
+    public function removeHobbyFromUser(int $userId, int $hobbyId): User
+    {
+        $user = $this->getUserById($userId);
+        $this->repo->detachHobby($user, $hobbyId);
+        return $user->load('hobbies');
     }
 }

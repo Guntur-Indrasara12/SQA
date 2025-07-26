@@ -35,4 +35,9 @@ class Hobby extends Model
             ->useLogName('Hobby')
             ->dontSubmitEmptyLogs();
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

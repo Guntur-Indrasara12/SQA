@@ -41,4 +41,14 @@ class UserRepository implements UserRepositoryInterface
         }
         return false;
     }
+
+    public function attachHobby(User $user, int $hobbyId): void
+    {
+        $user->hobbies()->syncWithoutDetaching($hobbyId);
+    }
+
+    public function detachHobby(User $user, int $hobbyId): void
+    {
+        $user->hobbies()->detach($hobbyId);
+    }
 }
