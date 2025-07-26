@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\HobbyController;
+use App\Http\Controllers\Api\V1\PhoneNumberController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
@@ -23,5 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/users/{user}/hobbies', [UserController::class, 'attachHobby']);
     Route::delete('/users/{user}/hobbies/{hobby}', [UserController::class, 'detachHobby']);
     Route::apiResource('profile', ProfileController::class);
+    Route::apiResource('phone', PhoneNumberController::class);
+
 
 });

@@ -52,8 +52,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Hobby::class);
     }
 
-    public function User()
+    public function profiles()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function phoneNumber()
+    {
+        return $this->belongsToMany(phoneNumber::class);
     }
 }
