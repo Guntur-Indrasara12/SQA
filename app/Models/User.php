@@ -6,7 +6,6 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class User extends Authenticatable
 {
@@ -52,13 +51,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Hobby::class);
     }
 
-    public function profiles()
+    public function profile()
     {
         return $this->hasOne(Profile::class);
     }
 
-    public function phoneNumber()
+    public function phoneNumbers()
     {
-        return $this->belongsToMany(phoneNumber::class);
+        return $this->hasMany(phoneNumber::class);
     }
 }

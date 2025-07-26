@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AttachHobbyRequest;
 use App\Http\Resources\V1\UserResource;
 use App\Services\UserServices;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use App\Http\Resources\V1\ProfileResource;
+use App\Http\Resources\V1\HobbyResource;
+use App\Http\Resources\V1\PhoneNumberResource;
+
 
 class UserController extends Controller
 {
@@ -46,5 +50,27 @@ class UserController extends Controller
             'message' => 'Hobby successfully detached from user.',
             'data' => new UserResource($user)
         ]);
+    }
+
+
+    public function getProfile(Request $request)
+    {
+        $user = $request->user();
+        return new ProfileResource($user->load('profile')->profile);
+    }
+
+
+    public function getHobbies(Request $request)
+    {
+        $user = $request->user();
+        return HobbyResource::collection($user->hobbies);
+    }
+
+
+    public function getPhoneNumbers(Request $request)
+    {
+        $user = $request->user();
+
+        return PhoneNumberResource::collection($user->phoneNumbers);
     }
 }
