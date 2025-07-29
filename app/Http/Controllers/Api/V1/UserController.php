@@ -26,10 +26,9 @@ class UserController extends Controller
         $User = $this->userService->getAllUser();
         return UserResource::collection($User);
     }
-    public function attachHobby(AttachHobbyRequest $request, int $userId)
+    public function attachHobby(AttachHobbyRequest $request)
     {
         $user = $this->userService->assignHobbyToUser(
-            $userId,
             $request->validated()['hobby_id']
         );
 
@@ -41,9 +40,9 @@ class UserController extends Controller
     }
 
 
-    public function detachHobby(int $userId, int $hobbyId)
+    public function detachHobby(int $hobbyId)
     {
-        $user = $this->userService->removeHobbyFromUser($userId, $hobbyId);
+        $user = $this->userService->removeHobbyFromUser($hobbyId);
 
         return response()->json([
             'success' => true,
