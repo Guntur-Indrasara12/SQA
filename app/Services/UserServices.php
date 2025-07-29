@@ -82,9 +82,9 @@ class UserServices
         return $this->repo->filter($request);
     }
 
-    public function assignHobbyToUser(int $userId, int $hobbyId): User
+    public function assignHobbyToUser(int $hobbyId): User
     {
-        $user = $this->getUserById($userId);
+        $user = auth()->user();
         $this->repo->attachHobby($user, $hobbyId);
         return $user->load('hobbies');
     }
@@ -95,9 +95,9 @@ class UserServices
      * @param int $hobbyId
      * @return User
      */
-    public function removeHobbyFromUser(int $userId, int $hobbyId): User
+    public function removeHobbyFromUser(int $hobbyId): User
     {
-        $user = $this->getUserById($userId);
+        $user = auth()->user();
         $this->repo->detachHobby($user, $hobbyId);
         return $user->load('hobbies');
     }
